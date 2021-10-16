@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link async="" defer="" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins');
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+
+        h1,
+        h2,
+        h3,
+        h4,
+        p {
+            margin: 10px 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow-x: hidden;
+        }
+
+        html {
+            box-sizing: border-box;
+            background-color: #F7F8F9;
+            color: #494758;
+        }
+
+        body {
+            font-family: poppins, sans-serif;
+        }
+
+        p {
+            color: #9899A5;
+            font-size: 17px;
+        }
+
+        .center {
+            margin-left: auto;
+            margin-right: 0;
+            padding: 10px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .progress {
+            width: 150px;
+            height: 150px;
+            line-height: 150px;
+            background: none;
+            margin: 0 auto;
+            box-shadow: none;
+            position: relative;
+        }
+
+        .radial-progress-bar {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            background: #ddd;
+            margin: 20px;
+        }
+
+        .radial-progress-bar .overlay {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            margin: auto;
+            background: #fff;
+            text-align: center;
+            padding-top: 24%;
+            padding-left: 5%;
+            font-weight: bold;
+            font-size: 28px;
+        }
+
+        .progress-78 {
+            background-image: linear-gradient(10deg, #F18C21 50%, transparent 50%), linear-gradient(-70deg, #F18C21 50%, #ddd 50%);
+        }
+
+        .status-container {
+            background-color: #E8EEEF;
+            border-radius: 100px;
+        }
+
+        .status-message {
+            margin-top: 1.5%;
+        }
+
+        .circle {
+            width: 50px;
+            height: 50px;
+            background-color: #494758;
+            border-radius: 60px;
+            color: white;
+            position: relative;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        .arrow-icon-right {
+            border-right: 3px solid;
+            border-bottom: 3px solid;
+            height: 20px;
+            width: 20px;
+            transform: rotate(-45deg);
+            margin-left: 2px;
+        }
+
+        .arrow-icon-left {
+            border-right: 3px solid;
+            border-bottom: 3px solid;
+            height: 20px;
+            width: 20px;
+            transform: rotate(-225deg);
+            margin-left: 5px;
+        }
+
+        .date-container {
+            margin: 10px 0;
+            border-bottom: solid;
+            border-bottom-color: #494758;
+            padding: 5px;
+        }
+
+        .weekday-container,
+        .date-container,
+        .week-container {
+            justify-content: space-between;
+        }
+
+        .calendar {
+            width: 49%;
+        }
+
+        .weekday-container span,
+        .week-container span {
+            font-size: 18px;
+        }
+
+        .week-container span.outside-month {
+            color: #DADAD9;
+        }
+
+        .week-container span,
+        .weekday-container span {
+            width: 40px;
+            height: 40px;
+            margin: 5px 0;
+            border-radius: 20px;
+            display: inline-block;
+            padding: 5px 5px;
+            text-align: center;
+        }
+
+        .weekday-container {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .date {
+            margin-top: 5px;
+            font-size: 27px;
+            font-weight: 900;
+        }
+
+        .weekday-container,
+        .week-container {
+            padding: 0 15px;
+        }
+
+        .highlighted-date {
+            background-color: #E1E3E2;
+        }
+
+        .stats-viewer-container {
+            margin-top: 5%;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .trips-taken {
+            background-color: white;
+            width: 49%;
+            margin-left: 30px;
+            padding: 10px;
+        }
+
+        .status {
+            margin: 30px 0;
+        }
+
+        .trips-taken-header {
+            justify-content: space-between;
+            margin: auto;
+            border-bottom: solid;
+            border-bottom-color: #494758;
+            padding: 9px;
+            font-size: 23px;
+            font-weight: 900;
+            display: flex;
+            width: 90%;
+        }
+
+        .commute-chip {
+            width: 400px;
+            background-color: #F5F7F6;
+            border-radius: 30px;
+            padding: 10px;
+            margin: 20px;
+            font-size: 18px;
+        }
+
+        .commute-chip .cancel,
+        .commute-chip .edit {
+            float: right;
+            width: 50px;
+        }
+
+        .chip-text {
+            width: 200px;
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .orange-button {
+            width: 300px;
+            background-color: #F18C21;
+            color: white;
+            border-radius: 30px;
+            padding: 10px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .hoverable:hover {
+            cursor: pointer
+        }
+
+        .edit::before {
+            content: "✎";
+        }
+
+        .cancel::before {
+            content: "✕";
+            font-weight: bold;
+        }
+
+        .icon {
+            font-size: 12px;
+            width: 32px;
+            height: 32px;
+            background-color: #373939;
+            border-radius: 30px;
+            color: white;
+            padding: 4px;
+            display: inline-block;
+        }
+
+        .carpool-icon::before {
+            content: "🚗";
+            color: white;
+        }
+
+
+        .trips-taken-info-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .log-a-trip-container {
+            margin-top: 30%;
+        }
+
+        .help {
+            position: absolute;
+            top: 0;
+            right: 0px;
+            color: gray;
+            margin: 10px;
+        }
+
+        .details {
+            height: 100%;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="help hoverable">
+        <i class="material-icons">help</i>
+    </div>
+
+    <div class="logged-commute-container center">
+        <h1>Logged Commutes</h1>
+
+        <section class="status">
+            <div class="status-container flex">
+                <div class="radial-progress-bar flex progress-78">
+                    <div class="overlay">78%</div>
+                </div>
+                <div class="status-message">
+                    <h2>Great Job!</h2>
+                    <p>You're doing pretty well, 10 days to goal, keep going!</p>
+                </div>
+            </div>
+        </section>
+        <section class="details flex">
+            <div class="calendar">
+                <div class="flex date-container">
+                    <div class="circle">
+                        <div class="arrow">
+                            <div class="arrow-icon-left hoverable"></div>
+                        </div>
+                    </div>
+                    <div class="date">
+                        May 2021
+                    </div>
+                    <div class="circle">
+                        <div class="arrow">
+                            <div class="arrow-icon-right hoverable"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="calendar-rows-container">
+                    <div class="flex weekday-container">
+                        <span>
+                            S
+                        </span>
+                        <span>
+                            M
+                        </span>
+                        <span>
+                            T
+                        </span>
+                        <span>
+                            W
+                        </span>
+                        <span>
+                            T
+                        </span>
+                        <span>
+                            F
+                        </span>
+                        <span>
+                            S
+                        </span>
+                    </div>
+                    <div class="flex week-container">
+                        <span class="outside-month">
+                            25
+                        </span>
+                        <span class="outside-month">
+                            26
+                        </span>
+                        <span class="outside-month">
+                            27
+                        </span>
+                        <span class="outside-month">
+                            28
+                        </span>
+                        <span class="outside-month">
+                            29
+                        </span>
+                        <span class="outside-month">
+                            30
+                        </span>
+                        <span class="highlighted-date">
+                            1
+                        </span>
+                    </div>
+                    <div class="flex week-container">
+                        <span class="highlighted-date">
+                            2
+                        </span>
+                        <span class="highlighted-date">
+                            3
+                        </span>
+                        <span class="highlighted-date">
+                            4
+                        </span>
+                        <span class="highlighted-date">
+                            5
+                        </span>
+                        <span class="highlighted-date">
+                            6
+                        </span>
+                        <span class="highlighted-date">
+                            7
+                        </span>
+                        <span class="highlighted-date">
+                            8
+                        </span>
+                    </div>
+                    <div class="flex week-container">
+                        <span class="highlighted-date">
+                            9
+                        </span>
+                        <span class="highlighted-date">
+                            10
+                        </span>
+                        <span class="highlighted-date">
+                            11
+                        </span>
+                        <span class="highlighted-date">
+                            12
+                        </span>
+                        <span class="highlighted-date">
+                            13
+                        </span>
+                        <span class="highlighted-date">
+                            14
+                        </span>
+                        <span class="highlighted-date">
+                            15
+                        </span>
+                    </div>
+                    <div class="flex week-container">
+                        <span>
+                            16
+                        </span>
+                        <span>
+                            17
+                        </span>
+                        <span>
+                            18
+                        </span>
+                        <span>
+                            19
+                        </span>
+                        <span class="highlighted-date">
+                            20
+                        </span>
+                        <span class="highlighted-date">
+                            21
+                        </span>
+                        <span>
+                            22
+                        </span>
+                    </div>
+                    <div class="flex week-container">
+                        <span>
+                            23
+                        </span>
+                        <span>
+                            24
+                        </span>
+                        <span>
+                            25
+                        </span>
+                        <span>
+                            26
+                        </span>
+                        <span>
+                            27
+                        </span>
+                        <span>
+                            28
+                        </span>
+                        <span>
+                            29
+                        </span>
+                    </div>
+                    <div class="flex week-container">
+                        <span>
+                            30
+                        </span>
+                        <span>
+                            31
+                        </span>
+                        <span class="outside-month">
+                            1
+                        </span>
+                        <span class="outside-month">
+                            2
+                        </span>
+                        <span class="outside-month">
+                            3
+                        </span>
+                        <span class="outside-month">
+                            4
+                        </span>
+                        <span class="outside-month">
+                            5
+                        </span>
+                    </div>
+                </div>
+                <div class="stats-viewer-container center hoverable">
+                    View My Stats →
+                </div>
+            </div>
+            <div class="trips-taken">
+                <div class="trips-taken-header">
+                    <span>Trips Taken
+                    </span>
+                    <span>Fri-May 05, 2021</span>
+                </div>
+                <div class="trips-taken-info-container">
+                    <div class="chip-container">
+                        <div class="commute-chip center">
+                            <span class="chip-text">
+                                <i class="material-icons icon">car_rental</i>
+                                Drove Carpool
+                            </span>
+                            <span class="cancel hoverable"></span>
+                            <span class="edit hoverable"></span>
+                        </div>
+                        <div class="commute-chip center">
+                            <span class="chip-text">
+                                <i class="material-icons icon">directions_car</i>
+                                Single Passenger
+                            </span>
+                            <span class="cancel hoverable"></span>
+                            <span class="edit hoverable"></span>
+                        </div>
+                        <div class="log-a-trip-container">
+                            <div class="orange-button hoverable center">
+                                Log A Trip
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+
+</html>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
